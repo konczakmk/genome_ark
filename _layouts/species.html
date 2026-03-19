@@ -27,7 +27,7 @@ layout: default
 
       {% if page.image %}
       <div class="species-photo">
-        <img src="{{ page.image }}" alt="{{ page.common_name }}">
+        <img src="{{ page.image | prepend: site.baseurl }}" alt="{{ page.common_name }}">
         {% if page.image_attribution %}
           <small>{{ page.image_attribution }}</small>
         {% endif %}
