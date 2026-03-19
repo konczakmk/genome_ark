@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>{{ page.title | default: site.title }}</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #f4f1ec;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: #2c5f2e;
+      padding: 12px 24px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 0px 0px 20px 20px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-right: 16px;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* Strona główna */
+    .species-table-wrapper {
+      width: 75%;
+      margin-right: auto;
+      margin-left: auto;
+      padding: 2rem;
+    }
+
+    .species-table-wrapper table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .species-table-wrapper th {
+      background-color: #2c5f2e;
+      color: white;
+      padding: 12px 16px;
+      text-align: left;
+    }
+
+    .species-table-wrapper td {
+      padding: 12px 16px;
+      vertical-align: middle;
+      border-bottom: 1px solid #e0ddd8;
+    }
+
+    .species-table-wrapper tr:last-child td {
+      border-bottom: none;
+    }
+
+    .species-table-wrapper tr:hover {
+      background-color: #f9f7f4;
+    }
+
+    .species-img {
+      width: 120px;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .img-cell {
+      position: relative;
+      width: 140px;
+    }
+
+    .bionano-badge {
+      position: absolute;
+      top: -8px;
+      left: 8px;
+      background-color: red;
+      color: white;
+      font-size: 0.7rem;
+      font-weight: bold;
+      padding: 3px 7px;
+      border-radius: 4px;
+      z-index: 10;
+      white-space: nowrap;
+    }
+
+    .attribution {
+      font-size: 0.7rem;
+      color: #888;
+      margin-top: 4px;
+      display: block;
+      width: 120px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #666;
+      font-size: 0.9rem;
+      border-top: 1px solid #ddd;
+      margin-top: 2rem;
+    }
+
+    /* Strona gatunku */
+    .species-wrapper {
+      display: flex;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .toc {
+      width: 150px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 3rem;
+      align-self: flex-start;
+      background-color: #2c5f2e;
+      border-radius: 20px;
+      padding: 15px;
+    }
+
+    .toc a {
+      display: block;
+      padding: 8px 12px;
+      margin-bottom: 4px;
+      text-decoration: none;
+      color: #f4f1ec;
+      border-radius: 4px;
+      background-color: rgba(255,255,255,0.15);
+      border: 2px solid transparent;
+    }
+
+    .toc a:hover {
+      border: 2px solid white;
+      background-color: rgba(255,255,255,0.25);
+    }
+
+    .species-content {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .species-photo {
+      float: right;
+      margin: 0 0 1rem 2rem;
+      text-align: center;
+      max-width: 220px;
+    }
+
+    .species-photo img {
+      width: 200px;
+      border-radius: 20px;
+      display: block;
+    }
+
+    .species-photo small {
+      font-size: 0.7rem;
+      color: #888;
+    }
+
+    h2 {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    h2::before,
+    h2::after {
+      content: "";
+      flex: 1;
+      border-top: 1px solid #ccc;
+    }
+
+    .taxonomy-table {
+      border-collapse: collapse;
+      
+    }
+
+    .taxonomy-table th {
+      background-color: #2c5f2e;
+      color: white;
+      padding: 8px 12px;
+      text-align: left;
+      width: 120px;
+    }
+
+    .taxonomy-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #e0ddd8;
+    }
+
+    .sequencing-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .sequencing-table th {
+      background-color: #2c5f2e;
+      color: white;
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    .sequencing-table td {
+      padding: 8px 12px;
+    }
+
+    .sequencing-table tr:nth-child(even) {
+      background-color: #e8e8e8;
+    }
+
+    .sequencing-table tr:nth-child(odd) {
+      background-color: transparent;
+    }
+
+    .social-sidebar {
+      position: fixed;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 8px;
+      background: white;
+      border-radius: 8px 0 0 8px;
+      box-shadow: -2px 0 8px rgba(0,0,0,0.1);
+    }
+
+    .social-sidebar a {
+      display: block;
+      font-size: 1.5rem;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/species/astatotilapia_calliptera.html">Eastern happy</a>
+    <a href="/species/northern_goshawk.html">Northern goshawk</a>
+    <a href="/species/platypus.html">Platypus</a>
+    <a href="/species/slow_loris.html">Slow loris</a>
+  </nav>
+  <main>{{ content }}</main>
+</body>
+</html>

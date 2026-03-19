@@ -1,0 +1,81 @@
+---
+layout: default
+---
+
+<aside class="social-sidebar">
+  <a href="https://twitter.com" title="Twitter">🐦</a>
+  <a href="https://facebook.com" title="Facebook">📘</a>
+  <a href="https://instagram.com" title="Instagram">📷</a>
+</aside>
+
+<div class="species-wrapper">
+
+  <nav class="toc">
+    <ul style="list-style: none; padding:0; margin:0;">
+      <li><a href="#taxonomy">Taxonomy</a></li>
+      <li><a href="#sequencing">Sequencing Data</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <div class="species-content">
+
+    <h1>{{ page.common_name }} <em>({{ page.name }})</em></h1>
+
+    <section id="taxonomy">
+      <h2>Taxonomy</h2>
+
+      {% if page.image %}
+      <div class="species-photo">
+        <img src="{{ page.image }}" alt="{{ page.common_name }}">
+        {% if page.image_attribution %}
+          <small>{{ page.image_attribution }}</small>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <table>
+        <tr><th>Short name</th><td>{{ page.short_name }}</td></tr>
+        <tr><th>Taxon ID</th><td>{{ page.taxon_id }}</td></tr>
+        <tr><th>Order</th><td>{{ page.order.name }}</td></tr>
+        <tr><th>Family</th><td>{{ page.family.name }}</td></tr>
+      </table>
+    </section>
+
+    {% if page.samples %}
+    <section id="sequencing" style="clear:both;">
+      <h2>Sequencing Data</h2>
+      <table class="sequencing-table">
+        <thead>
+          <tr>
+            <th>Datatype</th>
+            <th>Individual</th>
+            <th>Bases</th>
+            <th>Coverage</th>
+            <th>Bytes</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for sample in page.samples %}
+          <tr>
+            <td>{{ sample.datatype }}</td>
+            <td>{{ sample.individual }}</td>
+            <td>{{ sample.bases }}</td>
+            <td>{{ sample.coverage }}</td>
+            <td>{{ sample.bytes }}</td>
+            <td><a href="{{ sample.url }}">🔗</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+    {% endif %}
+
+    <section id="about">
+      <h2>About</h2>
+      {{ content }}
+    </section>
+
+  </div>
+</div>

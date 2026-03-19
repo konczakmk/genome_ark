@@ -1,0 +1,58 @@
+---
+layout: default
+title: Species List
+---
+
+<div class="species-table-wrapper">
+  <h1>All Species</h1>
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 150px;">Photo</th>
+        <th style="width: 220px;">Name</th>
+        <th style="width: 150px;">Order / Family</th>
+        <th style="width: 120px;">Sequenced Resources</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for species in site.species %}
+      <tr>
+        <td class="img-cell">
+          {% assign has_bionano = false %}
+          {% for sample in species.samples %}
+            {% if sample.datatype == "Bionano" %}
+              {% assign has_bionano = true %}
+            {% endif %}
+          {% endfor %}
+          {% if has_bionano %}
+            <span class="bionano-badge">Bionano</span>
+          {% endif %}
+          {% if species.image %}
+            <a href="{{ species.url }}">
+              <img src="{{ species.image }}" alt="{{ species.common_name }}" class="species-img">
+            </a>
+            {% if species.image_attribution %}
+              <span class="attribution">{{ species.image_attribution }}</span>
+            {% endif %}
+          {% endif %}
+        </td>
+        <td>
+          <a href="{{ species.url }}">{{ species.common_name }}</a><br>
+          <em>{{ species.name }}</em>
+        </td>
+        <td>
+          {{ species.order.name }}<br>
+          {{ species.family.name }}
+        </td>
+        <td>
+          {{ species.samples | size }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  Autor: <strong>Maja Kończak</strong>
+</footer>
